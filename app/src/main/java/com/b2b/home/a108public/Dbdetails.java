@@ -5,6 +5,7 @@ package com.b2b.home.a108public;
  */
 public class Dbdetails {
 
+    final static public String number="1500";
     final private String Driver="com.mysql.jdbc.Driver";
     final static private String UserName="root";
     final static private String Pass="1234";

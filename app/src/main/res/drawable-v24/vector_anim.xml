@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:drawable="@drawable/ic_app_main_screnbg">
+    <target
+        android:animation="@animator/blink"
+        android:name="s1"/>
+    <target
+        android:animation="@animator/blink"
+        android:name="s2"/>
+    <target
+        android:animation="@animator/blink"
+        android:name="s3"/>
+    <target
+        android:animation="@animator/blink"
+        android:name="s4"/>
+    <target
+        android:animation="@animator/blink"
+        android:name="s5"/>
+    <target
+        android:animation="@animator/blink"
+        android:name="s6"/>
+
+</animated-vector>

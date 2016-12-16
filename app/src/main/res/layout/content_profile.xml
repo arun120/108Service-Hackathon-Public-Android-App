@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="none"
+    app:behavior_overlapTop="10dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:id="@+id/sam"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="Name"
+            android:id="@+id/name_holder"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Abishek"
+            android:textSize="15dp"
+            android:layout_below="@+id/name_holder"
+            android:id="@+id/name_profile" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="Mobile Number"
+            android:id="@+id/mob_holder"
+            android:layout_below="@+id/name_profile"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="9994020157"
+            android:textSize="15dp"
+            android:layout_below="@+id/mob_holder"
+
+            android:id="@+id/mob_profile" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="Address"
+            android:id="@+id/address_holder"
+            android:layout_below="@+id/mob_profile"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"
+            android:text="9994020157"
+            android:textSize="15dp"
+            android:layout_below="@+id/address_holder"
+
+            android:id="@+id/address_profile" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="Date of Birth"
+            android:id="@+id/dob_holder"
+            android:layout_below="@+id/address_profile"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:text="June 3, 1997"
+            android:textSize="15dp"
+            android:layout_below="@+id/dob_holder"
+
+            android:id="@+id/dob_profile" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="Aadhar Number"
+            android:id="@+id/adhar_holder"
+            android:layout_below="@+id/dob_profile"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="9994020157"
+            android:textSize="15dp"
+            android:layout_below="@+id/adhar_holder"
+
+            android:id="@+id/adhar_profile" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="Gender"
+            android:id="@+id/gender_holder"
+            android:layout_below="@+id/adhar_profile"
+            android:layout_marginTop="10dp"
+            />
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/gender_holder"
+            android:orientation="horizontal"
+            android:id="@+id/gender_profile"
+
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:checked="true"
+                android:clickable="false" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Female"
+                android:clickable="false" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:text="Email"
+            android:id="@+id/email_holder"
+            android:layout_below="@+id/gender_profile"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:text="9994020157"
+            android:textSize="15dp"
+            android:layout_below="@+id/email_holder"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/email_profile" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/user"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/user"
+            android:layout_below="@+id/name_profile"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/user"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/mob_profile"
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/user"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/address_profile"
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/user"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/dob_profile"
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/user"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/gender_profile"
+            />
+
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

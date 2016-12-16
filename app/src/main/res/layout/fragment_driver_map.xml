@@ -2,15 +2,117 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.b2b.home.a108public.DriverMap">
 
     <!-- TODO: Update blank fragment layout -->
 
-
-    <fragment
-        android:id="@+id/map2"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/search"
+
+            android:background="#383055">
+            <ImageView
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/search_drive11r"
+                android:scaleType="fitXY"
+                android:id="@+id/search_rot"
+                android:layout_centerVertical="true"/>
+            <ImageView
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/search_driver"
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:border_color="#fff"
+                app:border_width="3dp"
+                android:visibility="invisible"
+                android:src="@drawable/wallpaper"
+                android:layout_alignTop="@+id/search_rot"
+                android:layout_alignLeft="@+id/search_rot"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="70dp"
+                android:id="@+id/search_driver" />
+
+            <TextView
+                android:text="Searching For Drivers"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="31dp"
+                android:id="@+id/textView8" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:id="@+id/show_map">
+            <fragment
+                android:id="@+id/map2"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#f4f4f4"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/more_driver_details">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/map_driver_img"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/wallpaper"/>
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/go_right"/>
+
+                <TextView
+                    android:text="Arun Selvan - Driver"
+                    android:textColor="#212121"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/map_driver_img"
+                    android:layout_marginLeft="65dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/map_driver_name" />
+
+                <TextView
+                    android:text="More Deatils"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/map_driver_name"
+                    android:layout_alignLeft="@+id/map_driver_img"
+                    android:layout_marginLeft="65dp"
+                    android:id="@+id/textView11" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
 </FrameLayout>

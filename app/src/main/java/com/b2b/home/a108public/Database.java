@@ -152,9 +152,9 @@ public class Database {
         return update;
     }
 
-    public static String  findDriver(Customer_Case c){
+    public static Driver_Details  findDriver(Customer_Case c){
         Dbdetails db=new Dbdetails();
-        String driver_id=null;
+        Driver_Details driver_id=null;
         Connection conn=null;
         Statement stmt=null;
         try {
@@ -162,9 +162,14 @@ public class Database {
             conn= DriverManager.getConnection(db.getUrl(),db.getUserName(),db.getPass());
             stmt=conn.createStatement();
 
-            ResultSet rs=stmt.executeQuery("select driver_id  from case_link where case_id like '"+c.getCase_id()+"'");
-            if(rs.next())
-                driver_id=rs.getString("driver_id");
+            ResultSet rs=stmt.executeQuery("select a.driver_id,name,mobile  from case_link a,driver_details b where a.driver_id=b.driver_id and case_id like '"+c.getCase_id()+"'");
+            if(rs.next()){
+                    driver_id=new Driver_Details();
+                    driver_id.setDriver_id(rs.getString("driver_id"));
+                    driver_id.setMobile(rs.getString("mobile"));
+                    driver_id.setName(rs.getString("name"));
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }finally {

@@ -3,11 +3,14 @@ package com.b2b.home.a108public;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,14 +18,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.concurrent.ThreadPoolExecutor;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class DriverMap extends android.support.v4.app.Fragment implements OnMapReadyCallback {
@@ -37,7 +53,9 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
     String lat;
     String lon;
     boolean pushed;
-
+    CircleImageView driver;
+    RelativeLayout rl1,rl2;
+    public static Driver_Details driver_details;
 
     // TODO: Rename and change types of parameters
     // private String mParam1;
@@ -96,6 +114,43 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
     public void onStart() {
         super.onStart();
         mProgressDialog=new ProgressDialog(getActivity());
+        String type="fontl.otf";
+
+        rl1= (RelativeLayout) getActivity().findViewById(R.id.search);
+        rl2= (RelativeLayout) getActivity().findViewById(R.id.show_map);
+        final Typeface typeface=Typeface.createFromAsset(getActivity().getAssets(),type);
+        TextView txt= (TextView) getActivity().findViewById(R.id.textView8);
+        txt.setTypeface(typeface);
+        RelativeLayout rl= (RelativeLayout) getActivity().findViewById(R.id.more_driver_details);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getActivity(),Driver_Show.class);
+                startActivity(i);
+            }
+        });
+        driver= (CircleImageView) getActivity().findViewById(R.id.search_driver);
+        ImageView image1= (ImageView) getActivity().findViewById(R.id.search_rot);
+        Animation anima= AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
+        anima.setInterpolator(new LinearInterpolator());
+        image1.startAnimation(anima);
+        Handler handler=new Handler();
+
+       /* handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                driver.setVisibility(View.VISIBLE);
+                YoYo.with(Techniques.ZoomIn).duration(600).playOn(driver);
+            }
+        },18500);
+
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        },20000);*/
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);
 
@@ -138,18 +193,33 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
     }
 
     void searchdriver(){
-        new AsyncTask<Void,Void,String>(){
+        new AsyncTask<Void,Void,Driver_Details>(){
 
             @Override
-            protected void onPostExecute(String driver) {
-                super.onPostExecute(driver);
+            protected void onPostExecute(Driver_Details driver1) {
+                super.onPostExecute(driver1);
+                driver_details=driver1;
+                TextView drivername= (TextView) getActivity().findViewById(R.id.map_driver_name);
+                drivername.setText(driver1.getName());
+                driver.setVisibility(View.VISIBLE);
+                YoYo.with(Techniques.ZoomIn).duration(600).playOn(driver);
+                tracklocation(driver1.getDriver_id());
 
-                tracklocation(driver);
+
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        rl1.setVisibility(View.GONE);
+                        rl2.setVisibility(View.VISIBLE);
+                    }
+                },2000);
             }
 
             @Override
-            protected String doInBackground(Void... params) {
-                String driver=Database.findDriver(DriverView.c);
+            protected Driver_Details doInBackground(Void... params) {
+                Driver_Details driver=Database.findDriver(DriverView.c);
                 while(driver==null){
                     try {
                         Thread.sleep(10000);
@@ -168,7 +238,7 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
 
     void tracklocation(final String driverid){
 
-        Toast.makeText(getActivity(),"Tracking Started",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),"Tracking ...",Toast.LENGTH_SHORT).show();
 
             new AsyncTask<Void, Void, Driver_Location>() {
 
@@ -187,7 +257,7 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
 
                 @Override
                 protected Driver_Location doInBackground(Void... params) {
-                    String driver = Database.findDriver(DriverView.c);
+                    //String driver = Database.findDriver(DriverView.c);
 
 
                     try {
@@ -218,13 +288,13 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
                 mProgressDialog.setMessage("Loading .....");
                 mProgressDialog.setIndeterminate(true);
                 mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                mProgressDialog.show();
+              //  mProgressDialog.show();
             }
 
             @Override
             protected void onPostExecute(Integer id) {
                 super.onPostExecute(id);
-                mProgressDialog.dismiss();
+              //  mProgressDialog.dismiss();
                 Toast.makeText(getActivity(),DriverView.c.getCase_id(),Toast.LENGTH_SHORT).show();
 
 
@@ -233,13 +303,14 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
 
             @Override
             protected Integer doInBackground(Customer_Case... params) {
+                Log.i("Case add","Db called");
                 String caseid=Database.addCase(params[0]);
                 DriverView.c.setCase_id(caseid);
 
                 return 0;
 
             }
-        }.execute(DriverView.c);
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,DriverView.c);
 
 
         return false;
