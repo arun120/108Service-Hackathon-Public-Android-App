@@ -5,6 +5,7 @@
  */
 package com.b2b.home.a108public;
 
+import java.io.InputStream;
 import java.util.Date;
 
 /**
@@ -20,6 +21,8 @@ public class Customer_Case {
     private String no_ppl_affected;
     private Date time;
     private String description;
+    public InputStream image;
+
 
     /**
      * @return the cust_id

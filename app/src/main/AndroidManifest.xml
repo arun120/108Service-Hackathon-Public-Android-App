@@ -5,7 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -65,7 +68,8 @@
             android:theme="@style/AppTheme.Profile" />
         <activity android:name=".Edit_Profile" />
         <activity android:name=".History" />
-        <activity android:name=".Driver_Show"></activity>
+        <activity android:name=".Driver_Show" />
+        <activity android:name=".OverrideDialogActivity" android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"></activity>
     </application>
 
 </manifest>

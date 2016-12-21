@@ -32,6 +32,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -53,6 +54,7 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
     String lat;
     String lon;
     boolean pushed;
+    boolean override=false;
     CircleImageView driver;
     RelativeLayout rl1,rl2;
     public static Driver_Details driver_details;
@@ -93,12 +95,8 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
         super.onAttach(activity);
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
 
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,10 +107,10 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
 
 
     }
-
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
         mProgressDialog=new ProgressDialog(getActivity());
         String type="fontl.otf";
 
@@ -174,7 +172,9 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
             @Override
             public void onMyLocationChange(Location location) {
 
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+                if(pushed==false) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 20));
+                }
                 lat=String.valueOf(location.getLatitude());
                 lon=String.valueOf(location.getLongitude());
                 DriverView.c.setLatitude(lat);
@@ -247,7 +247,7 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
                     super.onPostExecute(loc);
                     if (loc != null) {
                         mMap.clear();
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(loc.getLatitude()), Double.valueOf(loc.getLongitude()))));
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(loc.getLatitude()), Double.valueOf(loc.getLongitude()))).icon(BitmapDescriptorFactory.fromResource(R.drawable.ambulance_car)));
 
                         Log.i("Driver Loc", "Marked");
 
@@ -295,8 +295,18 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
             protected void onPostExecute(Integer id) {
                 super.onPostExecute(id);
               //  mProgressDialog.dismiss();
-                Toast.makeText(getActivity(),DriverView.c.getCase_id(),Toast.LENGTH_SHORT).show();
+                if(id==0) {
+                    Toast.makeText(getActivity(), DriverView.c.getCase_id(), Toast.LENGTH_SHORT).show();
+                }else{
+                    //Handle override
+                    Log.i("Similar","Detected");
+                    Intent i=new Intent(getContext(),OverrideDialogActivity.class);
+                    i.putExtra("Caseid",String.valueOf(id));
+                    startActivity(i);
+                    override=true;
+                    push();
 
+                }
 
 
             }
@@ -304,6 +314,12 @@ public class DriverMap extends android.support.v4.app.Fragment implements OnMapR
             @Override
             protected Integer doInBackground(Customer_Case... params) {
                 Log.i("Case add","Db called");
+                //override issimilar
+                if(!override) {
+                    String res=Database.isSimilar(params[0]);
+                    if(!res.equals("false"))
+                    return Integer.valueOf(res);
+                }
                 String caseid=Database.addCase(params[0]);
                 DriverView.c.setCase_id(caseid);
 

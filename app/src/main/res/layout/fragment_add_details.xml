@@ -6,39 +6,132 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
-        android:orientation="vertical"
+<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Description"
-            android:id="@+id/textView3"
-            android:layout_marginTop="50dp" />
-
-        <EditText
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#b4b4b4"
+        android:id="@+id/image">
+        <ImageView
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/upload_image"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/upload_image"
+            />
+
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="Brief Info about the Incident"
+        android:id="@+id/name_holder"
+        android:textColor="#212121"
+        android:textSize="15dp"
+        android:layout_below="@+id/image"
+        android:layout_marginTop="15dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Info"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="15dp"
+        android:layout_below="@+id/name_holder"
+        android:id="@+id/description" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/shapes"
+        android:layout_below="@+id/image"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="80dp"
+        android:id="@+id/his"
+        android:layout_below="@+id/description"
+        android:background="#fff">
+
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/history_circle1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="21dp"
+            />
+
+        <TextView
+            android:text="Call 108"
+            android:textColor="#212121"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/description"
-            android:layout_gravity="right" />
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/namm"/>
+        <TextView
+            android:text="For Further Query"
+            android:textColor="#80212121"
+            android:layout_below="@+id/namm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="5dp"/>
+
+        <RelativeLayout
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/history_circle3"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/noti"
+                android:src="@drawable/call"
+                android:scaleType="center" />
+        </RelativeLayout>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Description"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:text="Call 108"
+            android:id="@+id/call"
+            android:textColor="#42ccbd"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+    </RelativeLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/his"
+            android:text="Upload Details"
             android:id="@+id/adddesc"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload Image"
-            android:id="@+id/image"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp" />
-    </LinearLayout>
+
+
+    </RelativeLayout>
 </FrameLayout>

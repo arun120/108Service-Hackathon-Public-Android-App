@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -226,4 +227,82 @@ public class Database {
 
         return loc;
     }
+
+
+
+    public static  String isSimilar(Customer_Case cc){
+
+        HttpURLConnection connection = null;
+        String s = "";
+
+        String surl=getSMSurl(cc);
+        surl=surl.replace("addCase","isSimilar");
+        URL url = null;
+        try {
+            url = new URL(surl);
+
+            connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            char c;
+            while ((c = (char) input.read()) != (char) -1)
+                s += c;
+
+            // Log.i("Server return",s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
+
+    public static Customer_Case getCase(String caseid){
+        Connection conn=null;
+        Statement stmt=null;
+        Dbdetails db=new Dbdetails();
+
+        Customer_Case cust=new Customer_Case();
+
+        try{
+            Class.forName(db.getDriver());
+            conn= DriverManager.getConnection(db.getUrl(),db.getUserName(),db.getPass());
+            stmt=conn.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from customer_case where case_id like '"+caseid+"'");
+            if(rs.next()) {
+
+                cust.setCase_id(rs.getString("case_id"));
+                cust.setDescription(rs.getString("description"));
+                cust.image = rs.getBinaryStream("image");
+
+                File f=new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Portal/");
+                if(!f.exists())
+                    f.mkdir();
+                FileOutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Image.jpg");
+
+                byte data[] = new byte[4096];
+                long total = 0;
+                int count;
+                while ((count = cust.image.read(data)) != -1) {
+                    // allow canceling with back button
+                    output.write(data, 0, count);
+
+
+                }
+
+                if(output!=null)
+            output.close();
+                if(cust.image!=null)
+                cust.image.close();
+            }
+
+        }catch(Exception e){e.printStackTrace();}finally{try {
+            if(stmt!=null)stmt.close();if(conn!=null)conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        }
+        return cust;
+    }
+
 }

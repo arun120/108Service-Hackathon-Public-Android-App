@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -64,13 +67,27 @@ public class addDetails extends android.support.v4.app.Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    ImageView upload_img;
     @Override
     public void onStart() {
         super.onStart();
 
         final EditText des=(EditText) getActivity().findViewById(R.id.description);
         Button adddesc=(Button) getActivity().findViewById(R.id.adddesc);
-        Button pic=(Button) getActivity().findViewById(R.id.image);
+        RelativeLayout pic= (RelativeLayout) getActivity().findViewById(R.id.image);
+        Button Call=(Button) getActivity().findViewById(R.id.call);
+
+        upload_img= (ImageView) getActivity().findViewById(R.id.upload_image);
+        Call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+
+                callIntent.setData(Uri.parse("tel:108"));
+
+                startActivity(callIntent);
+            }
+        });
 
         c=DriverView.c;
         mProgressDialog=new ProgressDialog(getActivity());
@@ -165,7 +182,7 @@ public class addDetails extends android.support.v4.app.Fragment {
         if (requestCode == 1888 && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             Toast.makeText(getActivity(),"Image received",Toast.LENGTH_SHORT).show();
-
+            upload_img.setImageBitmap(photo);
             FileOutputStream file = null;
             try {
 
